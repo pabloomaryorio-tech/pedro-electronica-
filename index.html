@@ -407,14 +407,20 @@
             });
         };
 
-        const filtrarProductos = (categoria) => {
-            if (categoria === 'TODOS') {
-                renderizarProductos(productos);
-            } else {
-                const filtrados = productos.filter(p => p.categoria === categoria);
-                renderizarProductos(filtrados);
-            }
-        };
+      const filtrarProductos = (categoria) => {
+    let productosMostrar;
+
+    if (categoria === 'TODOS') {
+        const novedades = productos.filter(p => p.novedad);
+        const resto = productos.filter(p => !p.novedad);
+
+        productosMostrar = [...novedades, ...resto];
+    } else {
+        productosMostrar = productos.filter(p => p.categoria === categoria);
+    }
+
+    renderizarProductos(productosMostrar);
+};
 
         const renderizarFiltros = () => {
             const selectFiltros = document.getElementById('select-filtros-tienda');
